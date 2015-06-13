@@ -1,0 +1,9 @@
+/target
+/bak
+/doc
+/.settings
+.classpath
+.DS_Store
+.project
+*.class
+

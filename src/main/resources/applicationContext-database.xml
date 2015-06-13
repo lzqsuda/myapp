@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:oscache="http://www.springmodules.org/schema/oscache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springmodules.org/schema/oscache http://www.springmodules.org/schema/cache/springmodules-oscache.xsd">
+
+	<!-- 数据源配置 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<!-- 设置JDBC驱动名称 -->
+		<property name="driverClassName" value="${jdbc.driver}" />
+		<!-- 设置JDBC连接URL -->
+		<property name="url" value="${jdbc.url}" />
+		<!-- 设置数据库用户名 -->
+		<property name="username" value="${jdbc.username}" />
+		<!-- 设置数据库密码 -->
+		<property name="password" value="${jdbc.password}" />
+		<!-- 设置连接池初始值 -->
+		<property name="initialSize" value="5" />
+		<!-- 设置连接池最大值 -->
+		<property name="maxActive" value="100" />
+		<!-- 设置连接池最小空闲值 -->
+		<property name="minIdle" value="20" />
+		<!-- 设置连接池最大空闲值 -->
+		<property name="maxIdle" value="50" />
+	</bean>
+
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate3.annotation.AnnotationSessionFactoryBean">
+		<!-- 配置Hibernate拦截器,自动填充数据的插入、更新时间 -->
+		<property name="entityInterceptor" ref="entityInterceptor" />
+		<property name="dataSource" ref="dataSource" />
+		<property name="hibernateProperties">
+			<value>
+				<!-- 设置数据库方言 -->
+				hibernate.dialect=${hibernate.dialect}
+				<!-- 设置自动创建|更新|验证数据库表结构 -->
+				hibernate.hbm2ddl.auto=update
+				<!-- 输出SQL语句到控制台 -->
+				hibernate.show_sql=${hibernate.show_sql}
+				<!-- 格式化输出到控制台的SQL语句 -->
+				hibernate.format_sql=${hibernate.format_sql}								
+				<!-- 数据库批量查询数 -->
+				hibernate.jdbc.fetch_size=50
+				<!-- 数据库批量更新数 -->
+				hibernate.jdbc.batch_size=30
+				<!--session绑定到线程上  -->
+				<!-- hibernate.current_session_context_class=thread -->				
+			</value>
+		</property>
+
+		<property name="annotatedClasses">
+			<list>
+				<value>com.itrueshop.entity.Area</value>							
+				<value>com.itrueshop.entity.MemberRank</value>
+				<value>com.itrueshop.entity.Member</value>
+				<value>com.itrueshop.entity.MemberAttribute</value>
+				<value>com.itrueshop.entity.Receiver</value>
+				<value>com.itrueshop.entity.ProductCategory</value>
+				<value>com.itrueshop.entity.Product</value>
+				<value>com.itrueshop.entity.ProductType</value>
+				<value>com.itrueshop.entity.ProductAttribute</value>
+				<value>com.itrueshop.entity.Brand</value>
+				<value>com.itrueshop.entity.Navigation</value>
+				<value>com.itrueshop.entity.ArticleCategory</value>
+				<value>com.itrueshop.entity.Article</value>
+				<value>com.itrueshop.entity.FriendLink</value>
+				<value>com.itrueshop.entity.Footer</value>
+				<value>com.itrueshop.entity.Agreement</value>
+				<value>com.itrueshop.entity.Message</value>
+				<value>com.itrueshop.entity.CartItem</value>
+				<value>com.itrueshop.entity.PaymentConfig</value>
+				<value>com.itrueshop.entity.Deposit</value>
+				<value>com.itrueshop.entity.Payment</value>
+				<value>com.itrueshop.entity.Refund</value>
+				<value>com.itrueshop.entity.Shipping</value>
+				<value>com.itrueshop.entity.Reship</value>
+				<value>com.itrueshop.entity.DeliveryType</value>
+				<value>com.itrueshop.entity.DeliveryCorp</value>
+				<value>com.itrueshop.entity.DeliveryItem</value>
+				<value>com.itrueshop.entity.Order</value>
+				<value>com.itrueshop.entity.OrderItem</value>
+				<value>com.itrueshop.entity.OrderLog</value>				
+				<value>com.itrueshop.entity.Admin</value>
+				<value>com.itrueshop.entity.Role</value>
+				<value>com.itrueshop.entity.Resource</value>
+				<value>com.itrueshop.entity.LogConfig</value>
+				<value>com.itrueshop.entity.Log</value>
+			</list>
+		</property>
+	</bean>		
+</beans>

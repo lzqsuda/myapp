@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://jetty.mortbay.org/configure.dtd">
+<Configure class="org.mortbay.jetty.webapp.WebAppContext">
+<!-- DB2 DataSource -->
+	<!-- 
+	<New id="dataSource1" class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>jdbc/cmfdsw</Arg>
+		<Arg>
+			<New class="org.apache.commons.dbcp.BasicDataSource">
+				<Set name="driverClassName">com.ibm.db2.jcc.DB2Driver</Set>
+				<Set name="url">jdbc:db2://10.19.250.132:50000/ecifdb:currentSchema=ECIF;</Set>
+				<Set name="username">u8213566</Set>
+				<Set name="password">qwe123</Set>
+			</New>
+		</Arg>
+	</New>
+	<New id="dataSource2" class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>jdbc/cmfdsr</Arg>
+		<Arg>
+			<New class="org.apache.commons.dbcp.BasicDataSource">
+				<Set name="driverClassName">com.ibm.db2.jcc.DB2Driver</Set>
+				<Set name="url">jdbc:db2://10.19.250.132:50000/ecifdb:currentSchema=ECIF;</Set>
+				<Set name="username">u8213566</Set>
+				<Set name="password">qwe123</Set>
+			</New>
+		</Arg>
+	</New>
+	<New id="dataSource3" class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>jdbc/carddsw</Arg>
+		<Arg>
+			<New class="org.apache.commons.dbcp.BasicDataSource">
+				<Set name="driverClassName">com.ibm.db2.jcc.DB2Driver</Set>
+				<Set name="url">jdbc:db2://10.19.250.132:50000/ecifdb:currentSchema=ECIFCARD;</Set>
+				<Set name="username">u8213566</Set>
+				<Set name="password">qwe123</Set>
+			</New>
+		</Arg>
+	</New>
+	<New id="dataSource4" class="org.mortbay.jetty.plus.naming.EnvEntry">
+		<Arg>jdbc/carddsr</Arg>
+		<Arg>
+			<New class="org.apache.commons.dbcp.BasicDataSource">
+				<Set name="driverClassName">com.ibm.db2.jcc.DB2Driver</Set>
+				<Set name="url">jdbc:db2://10.19.250.132:50000/ecifdb:currentSchema=ECIFCARD;</Set>
+				<Set name="username">u8213566</Set>
+				<Set name="password">qwe123</Set>
+			</New>
+		</Arg>
+	</New> -->
+</Configure>
