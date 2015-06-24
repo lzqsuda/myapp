@@ -17,8 +17,6 @@ import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 
-import freemarker.template.TemplateException;
-
 /**
  * 后台Action类 - 静态模板 
  */
@@ -56,12 +54,8 @@ public class TemplateHtmlAction extends BaseAdminAction {
 	public String update() {
 		htmlConfig = TemplateConfigUtil.getHtmlConfig(htmlConfig.getName());
 		TemplateConfigUtil.writeTemplateFileContent(htmlConfig, templateFileContent);
-		try {
-			ServletContext servletContext = ServletActionContext.getServletContext();
-			freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		}
+		ServletContext servletContext = ServletActionContext.getServletContext();
+		freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
 		redirectionUrl = "template_html!list.action";
 		return SUCCESS;
 	}

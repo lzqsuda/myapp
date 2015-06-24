@@ -100,7 +100,7 @@ public class RoleAction extends BaseAdminAction {
 			@StringLengthFieldValidator(fieldName = "role.value", minLength = "6", message = "角色标识长度不能小于${minLength}!") 
 		}, 
 		regexFields = { 
-			@RegexFieldValidator(fieldName = "role.value", expression = "^ROLE_.*", message = "角色标识必须以ROLE_开头!") 
+			@RegexFieldValidator(fieldName = "role.value", regexExpression = "^ROLE_.*", message = "角色标识必须以ROLE_开头!") 
 		}
 	)
 	@InputConfig(resultName = "error")
@@ -126,7 +126,7 @@ public class RoleAction extends BaseAdminAction {
 			@StringLengthFieldValidator(fieldName = "role.value", minLength = "6", message = "角色标识长度不能小于${minLength}!") 
 		}, 
 		regexFields = { 
-			@RegexFieldValidator(fieldName = "role.value", expression = "^ROLE_.*", message = "角色标识必须以ROLE_开头!") 
+			@RegexFieldValidator(fieldName = "role.value", regexExpression = "^ROLE_.*", message = "角色标识必须以ROLE_开头!") 
 		}
 	)
 	@InputConfig(resultName = "error")

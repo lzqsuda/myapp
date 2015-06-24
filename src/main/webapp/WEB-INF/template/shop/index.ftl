@@ -55,11 +55,11 @@ $(document).ready(function() {
             				<li class="mainCategory">
 								<a href="${base}/shop/product!list.action?id=${list.id}">${list.name}</a>
 							</li>
-							<#if (list.children != null && list.children?size > 0)>
+							<#if (list.children ! && list.children?size > 0)>
 								<#list list.children as list>
 									<li>
 										<a href="${base}/shop/product!list.action?id=${list.id}"><span class="icon">&nbsp;</span>${list.name}</a>
-										<#if (list.children != null && list.children?size > 0)>
+										<#if (list.children ! && list.children?size > 0)>
 											<ul>
 												<#list list.children as list>
 													<li>
@@ -105,45 +105,46 @@ $(document).ready(function() {
 				</div>
 			</div>
 			<div class="blank"></div>
-			<div class="hotProduct">
-				<div class="title">
-					<strong>热卖商品</strong>HOT
-				</div>
-				<a class="prev browse"></a>
-				<div class="scrollable">
-					<div class="items">
-						<#list hotProductList as list>
-							<#if list_index + 1 == 1>
-								<div>
-								<ul>
-							</#if>
-							<li>
-								<a href="${base}${list.htmlFilePath}">
-									<img src="${base}${(list.productImageList[0].thumbnailProductImagePath)!systemConfig.defaultThumbnailProductImagePath}" alt="${list.name}" />
-									<#if (list.name?length < 12)>
-										<p title="${list.name}">${list.name}</p>
-									<#else>
-										<p title="${list.name}">${list.name[0..9]}...</p>
-									</#if>
-								</a>
-							</li>
-							<#if (list_index + 1) % 4 == 0 && list_has_next && list_index + 1 != 12>
-								</ul>
-								</div>
-								<div>
-								<ul>
-							</#if>
-							<#if ((list_index + 1) % 4 == 0 && !list_has_next) || list_index + 1 == 12>
-								</ul>
-								</div>
-								<#break />
-							</#if>
-						</#list>
+				<div class="hotProduct">
+					<div class="title">
+						<strong>热卖商品</strong>HOT
 					</div>
+					<a class="prev browse"></a>
+					<div class="scrollable">
+						<div class="items">
+							<#list hotProductList as list>
+								<#if list_index + 1 == 1>
+									<div>
+									<ul>
+								</#if>
+								<li>
+									<a href="${base}${list.htmlFilePath}">
+										<img src="${base}${(list.productImageList[0].thumbnailProductImagePath)!systemConfig.defaultThumbnailProductImagePath}" alt="${list.name}" />
+										<#if (list.name?length < 12)>
+											<p title="${list.name}">${list.name}</p>
+										<#else>
+											<p title="${list.name}">${list.name[0..9]}...</p>
+										</#if>
+									</a>
+								</li>
+								<#if (list_index + 1) % 4 == 0 && list_has_next && list_index + 1 != 12>
+									</ul>
+									</div>
+									<div>
+									<ul>
+								</#if>
+								<#if ((list_index + 1) % 4 == 0 && !list_has_next) || list_index + 1 == 12>
+									</ul>
+									</div>
+									<#break />
+								</#if>
+							</#list>
+						</div>
+					</div>
+					<a class="next browse"></a>
 				</div>
-				<a class="next browse"></a>
 			</div>
-		</div>
+		</div><!--body right-->
 		<div class="blank"></div>
 		<img src="${base}/upload/image/banner4.jpg" />
 		<div class="blank"></div>

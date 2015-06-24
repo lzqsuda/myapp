@@ -6,8 +6,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springmodules.org/schema/oscache http://www.springmodules.org/schema/cache/springmodules-oscache.xsd">
 
 	<!-- 数据源配置 -->
-	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-		destroy-method="close">
+	<!-- <bean id="dataSource" class="com.itrueshop.XBasicDataSource" destroy-method="close"> -->
+	<bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource"
+		init-method="init" destroy-method="close">
 		<!-- 设置JDBC驱动名称 -->
 		<property name="driverClassName" value="${jdbc.driver}" />
 		<!-- 设置JDBC连接URL -->
@@ -17,13 +18,13 @@
 		<!-- 设置数据库密码 -->
 		<property name="password" value="${jdbc.password}" />
 		<!-- 设置连接池初始值 -->
-		<property name="initialSize" value="5" />
+		<property name="initialSize" value="${jdbc.initialSize}" />
 		<!-- 设置连接池最大值 -->
-		<property name="maxActive" value="100" />
+		<property name="maxActive" value="${jdbc.maxActive}" />
 		<!-- 设置连接池最小空闲值 -->
-		<property name="minIdle" value="20" />
+		<property name="minIdle" value="${jdbc.minIdle}" />
 		<!-- 设置连接池最大空闲值 -->
-		<property name="maxIdle" value="50" />
+		<property name="maxIdle" value="${jdbc.maxIdle}" />
 	</bean>
 
 	<bean id="sessionFactory"
@@ -40,19 +41,19 @@
 				<!-- 输出SQL语句到控制台 -->
 				hibernate.show_sql=${hibernate.show_sql}
 				<!-- 格式化输出到控制台的SQL语句 -->
-				hibernate.format_sql=${hibernate.format_sql}								
+				hibernate.format_sql=${hibernate.format_sql}
 				<!-- 数据库批量查询数 -->
 				hibernate.jdbc.fetch_size=50
 				<!-- 数据库批量更新数 -->
 				hibernate.jdbc.batch_size=30
-				<!--session绑定到线程上  -->
-				<!-- hibernate.current_session_context_class=thread -->				
+				<!--session绑定到线程上 -->
+				<!-- hibernate.current_session_context_class=thread -->
 			</value>
 		</property>
 
 		<property name="annotatedClasses">
 			<list>
-				<value>com.itrueshop.entity.Area</value>							
+				<value>com.itrueshop.entity.Area</value>
 				<value>com.itrueshop.entity.MemberRank</value>
 				<value>com.itrueshop.entity.Member</value>
 				<value>com.itrueshop.entity.MemberAttribute</value>
@@ -81,7 +82,7 @@
 				<value>com.itrueshop.entity.DeliveryItem</value>
 				<value>com.itrueshop.entity.Order</value>
 				<value>com.itrueshop.entity.OrderItem</value>
-				<value>com.itrueshop.entity.OrderLog</value>				
+				<value>com.itrueshop.entity.OrderLog</value>
 				<value>com.itrueshop.entity.Admin</value>
 				<value>com.itrueshop.entity.Role</value>
 				<value>com.itrueshop.entity.Resource</value>
@@ -89,5 +90,5 @@
 				<value>com.itrueshop.entity.Log</value>
 			</list>
 		</property>
-	</bean>		
+	</bean>
 </beans>

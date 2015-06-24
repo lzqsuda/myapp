@@ -16,8 +16,10 @@ import javax.annotation.Resource;
 import javax.servlet.jsp.PageContext;
 
 import com.itrueshop.action.admin.BaseAdminAction;
+import com.itrueshop.bean.Pager;
 import com.itrueshop.bean.ProductImage;
 import com.itrueshop.bean.SystemConfig;
+import com.itrueshop.bean.Pager.OrderType;
 import com.itrueshop.bean.SystemConfig.PointType;
 
 import org.apache.commons.lang.ArrayUtils;
@@ -64,6 +66,8 @@ public class ProductAction extends BaseAdminAction {
 	private String[] productImageParameterTypes;
 	private String[] productImageIds;
 	
+	private String[] productImagesContentType;//暂时这个变量没有用，liuzhq add 20140609
+	
 	private Product product;
 
 	@Resource
@@ -92,6 +96,11 @@ public class ProductAction extends BaseAdminAction {
 
 	// 列表
 	public String list() {
+	    if(pager==null){
+	        pager=new Pager();
+	        pager.setOrderBy("modifyDate");
+	        pager.setOrderType(OrderType.desc);
+	    }
 		pager = productService.findByPager(pager);
 		return LIST;
 	}
@@ -509,6 +518,14 @@ public class ProductAction extends BaseAdminAction {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public void setProductImagesContentType(String[] productImagesContentType) {
+		this.productImagesContentType = productImagesContentType;
+	}
+
+	public String[] getProductImagesContentType() {
+		return productImagesContentType;
 	}
 
 }

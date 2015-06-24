@@ -16,8 +16,6 @@ import com.opensymphony.oscache.base.Cache;
 import com.opensymphony.oscache.general.GeneralCacheAdministrator;
 import com.opensymphony.oscache.web.ServletCacheAdministrator;
 
-import freemarker.template.TemplateException;
-
 /**
  * 后台Action类 - 缓存
  * 
@@ -37,12 +35,8 @@ public class CacheAction extends BaseAdminAction {
 	public String flush() {
 		cacheManager.flushAll();
 		flushCache();
-		try {
-			ServletContext servletContext = ServletActionContext.getServletContext();
-			freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		}
+		ServletContext servletContext = ServletActionContext.getServletContext();
+		freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
 		return SUCCESS;
 	}
 	

@@ -6,7 +6,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.5.xsd http://www.springmodules.org/schema/oscache http://www.springmodules.org/schema/cache/springmodules-oscache.xsd">
 
 	<!-- 配置freemarkerManager -->
-	<bean id="freemarkerManager" class="org.apache.struts2.views.freemarker.FreemarkerManager" />
+	<!-- <bean id="freemarkerManager" class="org.apache.struts2.views.freemarker.FreemarkerManager" 
+		/> -->
+	<bean id="freemarkerManager" class="com.itrueshop.web.CustomFreemarkerManager" />
 
 	<!-- 配置JCaptcha验证码功能 -->
 	<bean id="captchaService"
@@ -17,5 +19,5 @@
 		<!-- 验证码过期时间 -->
 		<property name="minGuarantedStorageDelayInSeconds" value="600" />
 	</bean>
-	
+
 </beans>

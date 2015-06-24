@@ -48,6 +48,7 @@ public class BuildHtmlAction extends BaseAdminAction {
 	@Resource
 	private HtmlService htmlService;
 	
+	private String buildTypeInput;//liuzhq20140611 add 没有用到
 	private String buildType;// 更新类型
 	private String buildContent;// 更新内容
 	private Integer maxResults;// 每次更新数
@@ -332,5 +333,13 @@ public class BuildHtmlAction extends BaseAdminAction {
 	public void setEndDate(Date endDate) {
 		this.endDate = endDate;
 	}
+
+    public void setBuildTypeInput(String buildTypeInput) {
+        this.buildTypeInput = buildTypeInput;
+    }
+
+    public String getBuildTypeInput() {
+        return buildTypeInput;
+    }
 
 }

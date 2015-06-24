@@ -17,8 +17,6 @@ import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
 import com.opensymphony.xwork2.validator.annotations.RequiredStringValidator;
 import com.opensymphony.xwork2.validator.annotations.Validations;
 
-import freemarker.template.TemplateException;
-
 /**
  * 后台Action类 - 动态模板
  */
@@ -56,12 +54,8 @@ public class TemplateDynamicAction extends BaseAdminAction {
 	public String update() {
 		dynamicConfig = TemplateConfigUtil.getDynamicConfig(dynamicConfig.getName());
 		TemplateConfigUtil.writeTemplateFileContent(dynamicConfig, templateFileContent);
-		try {
-			ServletContext servletContext = ServletActionContext.getServletContext();
-			freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
-		} catch (TemplateException e) {
-			e.printStackTrace();
-		}
+		ServletContext servletContext = ServletActionContext.getServletContext();
+		freemarkerManager.getConfiguration(servletContext).clearTemplateCache();
 		redirectionUrl = "template_dynamic!list.action";
 		return SUCCESS;
 	}

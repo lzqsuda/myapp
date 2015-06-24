@@ -2,7 +2,8 @@
 <!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN" "http://struts.apache.org/dtds/struts-2.0.dtd">
 <struts>
 
-
+	<constant name="struts.freemarker.manager.classname" value="com.itrueshop.web.CustomFreemarkerManager" />
+	<constant name="struts.enable.DynamicMethodInvocation" value="true" />
 	<!-- 是否显示详细错误信息 -->
 	<constant name="struts.devMode" value="true" />
 	<!-- 国际化资源文件名称 -->
@@ -33,11 +34,11 @@
 
 	<package name="basePackage" extends="struts-default">
 		<interceptors>
-			<interceptor-stack name="baseStack">				 
+			<interceptor-stack name="baseStack">
 				<interceptor-ref name="exception">
-					 <param name="logEnabled">true</param>
-                  	<!--<param name="logCategory">com.mycompany.app.unhandled</param> -->
-                  	<param name="logLevel">WARN</param>  
+					<param name="logEnabled">true</param>
+					<!--<param name="logCategory">com.mycompany.app.unhandled</param> -->
+					<param name="logLevel">WARN</param>
 				</interceptor-ref>
 				<interceptor-ref name="alias" />
 				<interceptor-ref name="servletConfig" />
@@ -63,7 +64,7 @@
 				</interceptor-ref>
 				<interceptor-ref name="workflow">
 					<param name="excludeMethods">input,back,cancel,browse</param>
-				</interceptor-ref>				
+				</interceptor-ref>
 			</interceptor-stack>
 		</interceptors>
 

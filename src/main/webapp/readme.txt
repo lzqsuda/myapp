@@ -1,1 +1,1 @@
-D:\myapp\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\wtpwebapps\
+1.logo ，默认图片 ，水印等图要修改

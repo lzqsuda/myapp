@@ -77,6 +77,9 @@
 						<span class="sort" name="store">库存</span>
 					</th>
 					<th>
+						<span class="sort" name="modifyDate">修改时间</span>
+					</th>
+					<th>
 						操作
 					</th>
 				</tr>
@@ -131,6 +134,9 @@
 						</td>
 						<td>
 							<span title="被占用数: ${(list.freezeStore)}">${(list.store)!"-"}<#if list.isOutOfStock> <span class="red">[缺货]</span></#if></span>
+						</td>
+						<td>
+						<span title="${list.modifyDate?string("yyyy-MM-dd HH:mm:ss")}">${list.modifyDate}</span>
 						</td>
 						<td>
 							<a href="product!edit.action?id=${list.id}" title="编辑">[编辑]</a>

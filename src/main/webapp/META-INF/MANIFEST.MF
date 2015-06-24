@@ -1,3 +1,30 @@
 Manifest-Version: 1.0
-Class-Path: 
+Class-Path: spring-beans-2.5.6.SEC01.jar commons-logging-1.1.1.jar spr
+ ing-core-2.5.6.SEC01.jar spring-aop-2.5.6.SEC01.jar aopalliance-1.0.j
+ ar spring-context-2.5.6.SEC01.jar spring-tx-2.5.6.SEC01.jar spring-co
+ ntext-support-2.5.6.SEC01.jar spring-test-2.5.6.SEC01.jar junit-3.8.1
+ .jar spring-jdbc-2.5.6.SEC01.jar spring-orm-2.5.6.SEC01.jar spring-se
+ curity-core-2.0.5.RELEASE.jar spring-support-2.0.8.jar commons-codec-
+ 1.3.jar commons-collections-3.2.jar spring-security-taglibs-2.0.5.REL
+ EASE.jar spring-security-acl-2.0.5.RELEASE.jar spring-web-2.0.8.jar s
+ pring-modules-cache-0.8a.jar struts2-spring-plugin-2.3.16.jar commons
+ -lang3-3.1.jar struts2-core-2.3.16.jar xwork-core-2.3.16.jar ognl-3.0
+ .6.jar javassist-3.11.0.GA.jar asm-3.1.jar asm-commons-3.3.jar asm-tr
+ ee-3.3.jar freemarker-2.3.19.jar commons-fileupload-1.2.2.jar commons
+ -io-2.2.jar struts2-convention-plugin-2.3.16.jar hibernate-3.2.7.ga.j
+ ar ehcache-1.2.3.jar jta-1.0.1B.jar asm-attrs-1.5.3.jar dom4j-1.6.1.j
+ ar antlr-2.7.6.jar cglib-2.2.jar hibernate-annotations-3.3.0.ga.jar p
+ ersistence-api-1.0.jar hibernate-commons-annotations-3.0.0.ga.jar slf
+ 4j-api-1.5.11.jar slf4j-log4j12-1.5.11.jar log4j-1.2.16.jar testng-6.
+ 6.jar bsh-2.0b4.jar jcommander-1.12.jar snakeyaml-1.6.jar mail-1.4.ja
+ r activation-1.1.jar mysql-connector-java-5.1.13.jar commons-lang-2.4
+ .jar commons-digester-2.1.jar commons-beanutils-1.8.3.jar commons-dbc
+ p-1.4.jar commons-pool-1.5.4.jar json-lib-2.4.jar ezmorph-1.0.6.jar c
+ ompass-2.2.0.jar lucene-core-2.4.1.jar oscache-2.4.1.jar jms-1.1.jar 
+ servlet-api-2.5.jar htmlparser-2.1.jar htmllexer-2.1.jar jcaptcha-1.0
+ .jar jcaptcha-api-1.0.jar imaging-01012005.jar jsp-api-2.1.1.jar el-a
+ pi-1.1.jar aspectjweaver-1.6.2.jar jaxen-1.1.1.jar jdom-1.0.jar xml-a
+ pis-1.3.02.jar xercesImpl-2.6.2.jar xom-1.0.jar xmlParserAPIs-2.6.2.j
+ ar xalan-2.6.0.jar icu4j-2.6.1.jar IKAnalyzer3.1.6GA.jar druid-1.0.5.
+ jar h2-1.4.187.jar
 

@@ -41,7 +41,7 @@ public class ArticleServiceImpl extends BaseServiceImpl<Article, String> impleme
     @Resource
     private HtmlService htmlService;
 
-    @Resource
+    //@Resource
     private CompassTemplate compassTemplate;
 
     @Resource

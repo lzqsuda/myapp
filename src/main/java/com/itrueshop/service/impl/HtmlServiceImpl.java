@@ -13,10 +13,8 @@ import java.util.ResourceBundle;
 import javax.annotation.Resource;
 import javax.servlet.ServletContext;
 
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.views.freemarker.FreemarkerManager;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,7 +35,7 @@ import com.itrueshop.service.NavigationService;
 import com.itrueshop.service.ProductCategoryService;
 import com.itrueshop.util.SystemConfigUtil;
 import com.itrueshop.util.TemplateConfigUtil;
-
+import com.itrueshop.web.CustomFreemarkerManager;
 
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.ext.beans.ResourceBundleModel;
@@ -46,14 +44,17 @@ import freemarker.template.Template;
 
 /**
  * Service实现类 - 生成静态
- *
+ * 
  */
 
 @Service
 public class HtmlServiceImpl implements HtmlService {
 
+	// 扩展的freemarker对象
 	@Resource
-	private FreemarkerManager freemarkerManager;
+	private CustomFreemarkerManager freemarkerManager;
+	// @Resource
+	// private FreemarkerManager freemarkerManager;
 	@Resource
 	private NavigationService navigationService;
 	@Resource
@@ -68,11 +69,13 @@ public class HtmlServiceImpl implements HtmlService {
 	ProductCategoryService productCategoryService;
 	@Resource
 	private ProductDao productDao;
-	
+
 	public void buildHtml(String templateFilePath, String htmlFilePath, Map<String, Object> data) {
 		try {
 			ServletContext servletContext = ServletActionContext.getServletContext();
-			Configuration configuration = freemarkerManager.getConfiguration(servletContext);
+			// 获取原始的不转义html的freemarker配置对象
+			Configuration configuration = freemarkerManager.getBuildHtmlConfiguration(servletContext);
+			//Configuration configuration = freemarkerManager.getConfiguration(servletContext);
 			Template template = configuration.getTemplate(templateFilePath);
 			File htmlFile = new File(servletContext.getRealPath(htmlFilePath));
 			File htmlDirectory = htmlFile.getParentFile();
@@ -87,7 +90,7 @@ public class HtmlServiceImpl implements HtmlService {
 			e.printStackTrace();
 		}
 	}
-	
+
 	// 获取公共数据
 	public Map<String, Object> getCommonData() {
 		Map<String, Object> commonData = new HashMap<String, Object>();
@@ -95,13 +98,13 @@ public class HtmlServiceImpl implements HtmlService {
 		ResourceBundle resourceBundle = ResourceBundle.getBundle(SystemETC.I18N);
 		ResourceBundleModel resourceBundleModel = new ResourceBundleModel(resourceBundle, new BeansWrapper());
 		SystemConfig systemConfig = SystemConfigUtil.getSystemConfig();
-		
+
 		String priceCurrencyFormat = SystemConfigUtil.getPriceCurrencyFormat();
 		String priceUnitCurrencyFormat = SystemConfigUtil.getPriceUnitCurrencyFormat();
-		
+
 		String orderCurrencyFormat = SystemConfigUtil.getOrderCurrencyFormat();
 		String orderUnitCurrencyFormat = SystemConfigUtil.getOrderUnitCurrencyFormat();
-		
+
 		commonData.put("bundle", resourceBundleModel);
 		commonData.put("base", servletContext.getContextPath());
 		commonData.put("systemConfig", systemConfig);
@@ -118,7 +121,7 @@ public class HtmlServiceImpl implements HtmlService {
 		commonData.put("footer", footerService.getFooter());
 		return commonData;
 	}
-	
+
 	public void baseJavascriptBuildHtml() {
 		Map<String, Object> data = getCommonData();
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.BASE_JAVASCRIPT);
@@ -126,7 +129,7 @@ public class HtmlServiceImpl implements HtmlService {
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
 	}
-	
+
 	public void indexBuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.INDEX);
 		Map<String, Object> data = getCommonData();
@@ -141,16 +144,20 @@ public class HtmlServiceImpl implements HtmlService {
 		Map<String, List<Product>> hotProductMap = new HashMap<String, List<Product>>();
 		Map<String, List<Product>> newProductMap = new HashMap<String, List<Product>>();
 		for (ProductCategory productCategory : allProductCategory) {
-			productCategoryMap.put(productCategory.getId(), productCategoryService.getChildrenProductCategoryList(productCategory));
-			bestProductMap.put(productCategory.getId(), productDao.getBestProductList(productCategory, Product.MAX_BEST_PRODUCT_LIST_COUNT));
-			hotProductMap.put(productCategory.getId(), productDao.getHotProductList(productCategory, Product.MAX_HOT_PRODUCT_LIST_COUNT));
-			newProductMap.put(productCategory.getId(), productDao.getNewProductList(productCategory, Product.MAX_NEW_PRODUCT_LIST_COUNT));
+			productCategoryMap.put(productCategory.getId(),
+					productCategoryService.getChildrenProductCategoryList(productCategory));
+			bestProductMap.put(productCategory.getId(),
+					productDao.getBestProductList(productCategory, Product.MAX_BEST_PRODUCT_LIST_COUNT));
+			hotProductMap.put(productCategory.getId(),
+					productDao.getHotProductList(productCategory, Product.MAX_HOT_PRODUCT_LIST_COUNT));
+			newProductMap.put(productCategory.getId(),
+					productDao.getNewProductList(productCategory, Product.MAX_NEW_PRODUCT_LIST_COUNT));
 		}
 		data.put("productCategoryMap", productCategoryMap);
 		data.put("bestProductMap", bestProductMap);
 		data.put("hotProductMap", hotProductMap);
 		data.put("newProductMap", newProductMap);
-		
+
 		data.put("rootArticleCategoryList", articleCategoryService.getRootArticleCategoryList());
 		data.put("recommendArticleList", articleDao.getRecommendArticleList(Article.MAX_RECOMMEND_ARTICLE_LIST_COUNT));
 		data.put("hotArticleList", articleDao.getHotArticleList(Article.MAX_HOT_ARTICLE_LIST_COUNT));
@@ -162,21 +169,25 @@ public class HtmlServiceImpl implements HtmlService {
 		Map<String, List<Article>> hotArticleMap = new HashMap<String, List<Article>>();
 		Map<String, List<Article>> newArticleMap = new HashMap<String, List<Article>>();
 		for (ArticleCategory articleCategory : allArticleCategory) {
-			articleCategoryMap.put(articleCategory.getId(), articleCategoryService.getChildrenArticleCategoryList(articleCategory));
-			recommendArticleMap.put(articleCategory.getId(), articleDao.getRecommendArticleList(articleCategory, Article.MAX_RECOMMEND_ARTICLE_LIST_COUNT));
-			hotArticleMap.put(articleCategory.getId(), articleDao.getHotArticleList(articleCategory, Article.MAX_HOT_ARTICLE_LIST_COUNT));
-			newArticleMap.put(articleCategory.getId(), articleDao.getNewArticleList(articleCategory, Article.MAX_NEW_ARTICLE_LIST_COUNT));
+			articleCategoryMap.put(articleCategory.getId(),
+					articleCategoryService.getChildrenArticleCategoryList(articleCategory));
+			recommendArticleMap.put(articleCategory.getId(),
+					articleDao.getRecommendArticleList(articleCategory, Article.MAX_RECOMMEND_ARTICLE_LIST_COUNT));
+			hotArticleMap.put(articleCategory.getId(),
+					articleDao.getHotArticleList(articleCategory, Article.MAX_HOT_ARTICLE_LIST_COUNT));
+			newArticleMap.put(articleCategory.getId(),
+					articleDao.getNewArticleList(articleCategory, Article.MAX_NEW_ARTICLE_LIST_COUNT));
 		}
 		data.put("articleCategoryMap", articleCategoryMap);
 		data.put("recommendArticleMap", recommendArticleMap);
 		data.put("hotArticleMap", hotArticleMap);
 		data.put("newArticleMap", newArticleMap);
-		
+
 		String htmlFilePath = htmlConfig.getHtmlFilePath();
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
 	}
-	
+
 	public void loginBuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.LOGIN);
 		Map<String, Object> data = getCommonData();
@@ -184,7 +195,7 @@ public class HtmlServiceImpl implements HtmlService {
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
 	}
-	
+
 	@Transactional
 	public void articleContentBuildHtml(Article article) {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ARTICLE_CONTENT);
@@ -193,7 +204,8 @@ public class HtmlServiceImpl implements HtmlService {
 		data.put("article", article);
 		data.put("pathList", articleCategoryService.getArticleCategoryPathList(article));
 		data.put("rootArticleCategoryList", articleCategoryService.getRootArticleCategoryList());
-		data.put("recommendArticleList", articleDao.getRecommendArticleList(articleCategory, Article.MAX_RECOMMEND_ARTICLE_LIST_COUNT));
+		data.put("recommendArticleList",
+				articleDao.getRecommendArticleList(articleCategory, Article.MAX_RECOMMEND_ARTICLE_LIST_COUNT));
 		data.put("hotArticleList", articleDao.getHotArticleList(articleCategory, Article.MAX_HOT_ARTICLE_LIST_COUNT));
 		data.put("newArticleList", articleDao.getNewArticleList(articleCategory, Article.MAX_NEW_ARTICLE_LIST_COUNT));
 		String htmlFilePath = article.getHtmlFilePath();
@@ -217,7 +229,7 @@ public class HtmlServiceImpl implements HtmlService {
 			buildHtml(templateFilePath, currentHtmlFilePath, data);
 		}
 	}
-	
+
 	public void productContentBuildHtml(Product product) {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.PRODUCT_CONTENT);
 		ProductCategory productCategory = product.getProductCategory();
@@ -232,7 +244,7 @@ public class HtmlServiceImpl implements HtmlService {
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
 	}
-	
+
 	public void errorPageBuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE);
 		Map<String, Object> data = getCommonData();
@@ -241,7 +253,7 @@ public class HtmlServiceImpl implements HtmlService {
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
 	}
-	
+
 	public void errorPageAccessDeniedBuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE);
 		Map<String, Object> data = getCommonData();
@@ -250,7 +262,7 @@ public class HtmlServiceImpl implements HtmlService {
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
 	}
-	
+
 	public void errorPage500BuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE_500);
 		Map<String, Object> data = getCommonData();
@@ -259,7 +271,7 @@ public class HtmlServiceImpl implements HtmlService {
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
 	}
-	
+
 	public void errorPage404BuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE_404);
 		Map<String, Object> data = getCommonData();
@@ -268,7 +280,7 @@ public class HtmlServiceImpl implements HtmlService {
 		String templateFilePath = htmlConfig.getTemplateFilePath();
 		buildHtml(templateFilePath, htmlFilePath, data);
 	}
-	
+
 	public void errorPage403BuildHtml() {
 		HtmlConfig htmlConfig = TemplateConfigUtil.getHtmlConfig(HtmlConfig.ERROR_PAGE_403);
 		Map<String, Object> data = getCommonData();

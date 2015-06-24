@@ -359,7 +359,7 @@ public class MemberAction extends BaseShopAction {
 			@EmailValidator(fieldName = "member.email", message = "E-mail格式错误!") 
 		}, 
 		regexFields = { 
-			@RegexFieldValidator(fieldName = "member.username", expression = "^[0-9a-z_A-Z\u4e00-\u9fa5]+$", message = "用户名只允许包含中文、英文、数字和下划线!") 
+			@RegexFieldValidator(fieldName = "member.username", regexExpression = "^[0-9a-z_A-Z\u4e00-\u9fa5]+$", message = "用户名只允许包含中文、英文、数字和下划线!") 
 		}
 	)
 	@InputConfig(resultName = "error")

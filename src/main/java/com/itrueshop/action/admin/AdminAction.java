@@ -70,6 +70,8 @@ public class AdminAction extends BaseAdminAction {
 	//@Resource
 	//private ServletContext servletContext;
 	
+	private String error;//liuzhq20140611 add not used
+	
 	// 登录页面
 	public String login() {
 		String error = getParameter("error");
@@ -187,7 +189,7 @@ public class AdminAction extends BaseAdminAction {
 			@EmailValidator(fieldName = "admin.email", message = "E-mail格式错误!")
 		},
 		regexFields = {
-			@RegexFieldValidator(fieldName = "admin.username", expression = "^[0-9a-z_A-Z\u4e00-\u9fa5]+$", message = "用户名只允许包含中文、英文、数字和下划线!") 
+			@RegexFieldValidator(fieldName = "admin.username", regexExpression = "^[0-9a-z_A-Z\u4e00-\u9fa5]+$", message = "用户名只允许包含中文、英文、数字和下划线!") 
 		}
 	)
 	@InputConfig(resultName = "error")
@@ -224,7 +226,7 @@ public class AdminAction extends BaseAdminAction {
 			@EmailValidator(fieldName = "admin.email", message = "E-mail格式错误!")
 		},
 		regexFields = {
-			@RegexFieldValidator(fieldName = "admin.username", expression = "^[0-9a-z_A-Z\u4e00-\u9fa5]+$", message = "用户名只允许包含中文、英文、数字和下划线!") 
+			@RegexFieldValidator(fieldName = "admin.username", regexExpression = "^[0-9a-z_A-Z\u4e00-\u9fa5]+$", message = "用户名只允许包含中文、英文、数字和下划线!") 
 		}
 	)
 	@InputConfig(resultName = "error")
@@ -322,5 +324,13 @@ public class AdminAction extends BaseAdminAction {
 	public void setRoleList(List<Role> roleList) {
 		this.roleList = roleList;
 	}
+
+    public void setError(String error) {
+        this.error = error;
+    }
+
+    public String getError() {
+        return error;
+    }
 
 }
